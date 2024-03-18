@@ -1,18 +1,27 @@
-// import { useState } from "react";
-import Header from "./Components/Header";
 import Home from "./Components/Home";
-import Footer from "./Components/Footer";
 import "./App.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 function App() {
-  const [num, setnum] = useState(1);
-  // let nums = 10
-  console.log("data", num);
+  const [photos, setPhotos] = useState([])
 
+  const handleCallFunction = (name) => {
+    fetch("https://jsonplaceholder.typicode.com/photos")
+      .then((res) => res.json())
+      .then((data) => {
+        console.log("hello photo", data);
+        setPhotos(data);
+      });
+  };
+
+  useEffect(() => {
+    handleCallFunction("vanshita");
+  }, [])
+
+  console.log("photos are", photos)
   return (
     <>
-      <Home />
+      <Home photos={photos} />
     </>
   );
 }
